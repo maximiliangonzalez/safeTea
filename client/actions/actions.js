@@ -1,5 +1,7 @@
 import * as types from '../constants/actionTypes';
 
+// for safeTea reducer
+
 export const changeDisplay = display => ({
   type: types.CHANGE_DISPLAY,
   payload: display
@@ -17,5 +19,5 @@ export const queryDB = endpoint => dispatch => {
         type: types.QUERY_DB,
         payload: res
       });
-    })
+    });
 };

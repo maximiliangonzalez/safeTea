@@ -6,24 +6,20 @@ class InfoCards extends Component {
     super(props);
   }
 
-  // render() {
-  //   return (
-  //     <div>
-  //       {JSON.stringify(this.props.result)}
-  //     </div>
-  //   );
-  // }
-
   render() {
     return (
       <div>
-        {this.props.result instanceof Array &&
+        {(this.props.result instanceof Array && this.props.result.length !== 0) &&
           this.props.result.map(country => {
             return <InfoCard data={country} key={country.country}/>;
           })
         }
         {!(this.props.result instanceof Array) && 
           <InfoCard data={this.props.result}/>
+        }
+        {
+          (this.props.result instanceof Array && this.props.result.length === 0) &&
+          <h1>No data found</h1>
         }
       </div>
     );

@@ -10,12 +10,12 @@ const pool = new Pool({
 
 module.exports = {
   getCountry(req, res, next) {
-    const queryString = `SELECT * FROM country WHERE country = $1`
-    pool.query(queryString, [req.params.country.toLowerCase()], (err, result) => {
+    const queryString = `SELECT * FROM country WHERE country LIKE $1`
+    pool.query(queryString, [`${req.params.country.toLowerCase()}%`], (err, result) => {
       if (err) {
         return next(err);
       }
-      res.locals.result = result.rows[0] || 'no data';
+      res.locals.result = result.rows || 'no data';
       return next();
     });
   },

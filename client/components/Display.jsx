@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Safety from './Safety.jsx';
+import Forum from './Forum.jsx';
 
 const mapStateToProps = store => ({
   display: store.safeTea.display
@@ -19,10 +20,7 @@ class Display extends Component {
     return (
       <div className="content">
         {this.props.display === 'safety' && <Safety />}
-        {
-          this.props.display === 'forum' && 
-          <h1>Forum</h1>
-        }
+        {this.props.display === 'forum' && <Forum />}
       </div>
     );
   }

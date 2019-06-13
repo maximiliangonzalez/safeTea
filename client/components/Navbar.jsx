@@ -30,8 +30,9 @@ class Navbar extends Component {
     return (
       <nav>
         <ul>
-          <li><a href="#" onClick={() => this.handleClick('safety')}>Safety</a></li>
-          <li><a href="#" onClick={() => this.handleClick('forum')}>Forum</a></li>
+          <li><a onClick={() => this.handleClick('safety')}>Safety</a></li>
+          <li><a onClick={() => this.handleClick('forum')}>Forum</a></li>
+          <li><a /*onClick={() => this.handleClick('forum')}*/>Login</a></li>
         </ul>
       </nav>
     );

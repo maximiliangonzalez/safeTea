@@ -5,7 +5,7 @@ class Banner extends Component {
   render() {
     return (
       <header>
-        <h1>safeTea</h1>
+        <h1>~ safeTea ~</h1>
         <Navbar />
       </header>
     );
