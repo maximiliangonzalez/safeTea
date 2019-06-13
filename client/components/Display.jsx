@@ -17,7 +17,7 @@ class Display extends Component {
 
   render() {
     return (
-      <div>
+      <div className="content">
         {this.props.display === 'safety' && <Safety />}
         {
           this.props.display === 'forum' && 
@@ -29,4 +29,3 @@ class Display extends Component {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Display);
-//export default Display;

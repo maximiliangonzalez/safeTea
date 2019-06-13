@@ -17,5 +17,5 @@ export const queryDB = endpoint => dispatch => {
         type: types.QUERY_DB,
         payload: res
       });
-    });
+    })
 };

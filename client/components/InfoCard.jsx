@@ -10,6 +10,9 @@ class InfoCard extends Component {
   }
 
   render() {
+    if (this.props.data === 'no data') {
+      return <h1>No data found</h1>
+    }
     return (
       <div>
         <h1>{cleanText(this.props.data.country)}</h1>

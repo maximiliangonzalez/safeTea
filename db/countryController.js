@@ -15,7 +15,7 @@ module.exports = {
       if (err) {
         return next(err);
       }
-      res.locals.result = result.rows[0];
+      res.locals.result = result.rows[0] || 'no data';
       return next();
     });
   },

@@ -59,7 +59,7 @@ class Safety extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <form>
         <h2>Search for info about a country: </h2>
         <input type="text" onChange={this.updateText}/>

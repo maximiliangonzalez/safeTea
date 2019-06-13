@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
+import Navbar from './Navbar.jsx';
 
 class Banner extends Component {
   render() {
     return (
-      <div>
+      <header>
         <h1>safeTea</h1>
-      </div>
+        <Navbar />
+      </header>
     );
   }
 }

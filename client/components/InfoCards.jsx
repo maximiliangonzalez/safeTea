@@ -17,10 +17,8 @@ class InfoCards extends Component {
   render() {
     return (
       <div>
-        {/* {console.log(this.props.result)} */}
         {this.props.result instanceof Array &&
           this.props.result.map(country => {
-            console.log(country)
             return <InfoCard data={country} key={country.country}/>;
           })
         }
