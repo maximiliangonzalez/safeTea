@@ -87,7 +87,7 @@ class Safety extends Component {
           <br />
           Countries with this right:
           <input type="radio" name="not" value="true" onChange={this.updateRadio} />
-          <br></br>
+          <br />
           Countries without this right:
           <input type="radio" name="not" value="false" onChange={this.updateRadio} />
         </form>

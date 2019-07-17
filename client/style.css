@@ -99,3 +99,8 @@ textarea {
   color: rgb(171, 68, 175);
   cursor: pointer;
 }
+
+.comment {
+  width: 500px;
+  height: 100px;
+}

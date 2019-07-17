@@ -36,4 +36,12 @@ app.post('/posts', postController.sendPost, (req, res) => {
   res.json({msg: 'post successfully sent'});
 });
 
+app.get('/comments/:id', postController.getComments, (req, res) => {
+  res.json(res.locals.result);
+});
+
+app.post('/comments/:id', postController.sendComment, (req, res) => {
+  res.json({'msg': 'added comment'})
+})
+
 app.listen(3000);

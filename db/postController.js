@@ -20,7 +20,7 @@ module.exports = {
     });
   },
   getAPost(req, res, next) {
-    const queryString = `SELECT * FROM post JOIN "forumUser" ON post."userId" = "forumUser".id WHERE post.id = $1`;
+    const queryString = `SELECT *, post.id AS postid FROM post JOIN "forumUser" ON post."userId" = "forumUser".id WHERE post.id = $1`;
     pool.query(queryString, [req.params.id], (err, result) => {
       if (err) {
         return next(err);
@@ -37,5 +37,25 @@ module.exports = {
       }
       return next();
     });
+  },
+  //COMMENTS HAS POSTID, POSTS HAVE ID (OR MAYBE THIS ISN'T IT BUT WHATEVER) (changed comment.id to comment.postid), might also be wrong ID sent to sendComment below
+  getComments(req, res, next) {
+    const queryString = `SELECT * FROM "comment" JOIN "forumUser" ON "comment"."userId" = "forumUser".id WHERE "comment"."postId" = $1`;
+    pool.query(queryString, [req.params.id], (err, result) => {
+      if (err) {
+        return next(err);
+      }
+      res.locals.result = result.rows;
+      return next();
+    })
+  },
+  sendComment(req, res, next) {
+    const queryString = `INSERT INTO "comment" ("userId", "postId", text) VALUES ($1, $2, $3)`;
+    pool.query(queryString, [req.body.userId, req.params.id, req.body.comment], (err, result) => {
+      if (err) {
+        return next(err);
+      }
+      return next();
+    });
   }
-}
+};

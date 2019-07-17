@@ -9,7 +9,7 @@ class Home extends Component {
               Whether you're traveling alone or with a partner, you should be aware that every country treats LGBTQ+ people differently. Some countries are safer than others.
             </p>
             <p>
-              Use our safety page to see which countries have which rights for LGBTQ+ citizens and visitors. Your safety is our priority. We wish you bon voyage (⏓◡⏓)
+              Use our safety page to see which countries have which rights for LGBTQ+ citizens and visitors. Your safety is our priority. We wish you bon voyage ~(⏓◡⏓)~
             </p>
             <div className="rows">
               <div>
