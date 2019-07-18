@@ -6,7 +6,7 @@ export const changeActivity = activity => ({
   payload: activity
 });
 
-export const fetchPosts = endpoint => dispatch => {
+export const fetchPosts = () => dispatch => {
   fetch('/posts')
     .then(res => res.json())
     .then(res => {

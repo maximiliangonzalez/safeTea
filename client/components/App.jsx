@@ -1,16 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Banner from './Banner.jsx';
 import Display from './Display.jsx';
 
-class App extends Component {
-  render() { 
-    return (
-      <div>
-        <Banner />
-        <Display />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <>
+    <Banner />
+    <Display />
+  </>
+);
 
 export default App;

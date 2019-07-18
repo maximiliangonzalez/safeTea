@@ -1,29 +1,17 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
+import {useSelector} from 'react-redux';
 import Safety from './Safety.jsx';
 import Forum from './Forum.jsx';
 
-const mapStateToProps = store => ({
-  display: store.safeTea.display
-});
-
-const mapDispatchToProps = dispatch => ({
+const Display = () =>  {
+  const display = useSelector(store => store.safeTea.display);
   
-});
-
-class Display extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className="content">
-        {this.props.display === 'safety' && <Safety />}
-        {this.props.display === 'forum' && <Forum />}
-      </div>
-    );
-  }
+  return (
+    <div className="content">
+      {display === 'safety' && <Safety />}
+      {display === 'forum' && <Forum />}
+    </div>
+  );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Display);
+export default Display;

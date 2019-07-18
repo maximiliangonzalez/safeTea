@@ -1,42 +1,32 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../actions/forumActions';
 
 import ForumBrowse from './ForumBrowse.jsx';
 import ForumRead from './ForumRead.jsx';
 import ForumWrite from './ForumWrite.jsx';
 
-const mapStateToProps = state => ({
-  activity: state.forum.activity
-});
+const Forum = () => {
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = dispatch => ({
-  changeActivity: activity => {
-    dispatch(actions.changeActivity(activity));
-  }
-});
+  const changeActivity = activity => dispatch(actions.changeActivity(activity));
 
-class Forum extends Component {
-  constructor(props) {
-    super(props);
-  }
+  const activity = useSelector(store => store.forum.activity);
 
-  render() {
-    return (
-      <div>
-        <h2>Welcome to the forums (✿ ͜ʖ✿)</h2>
-        {this.props.activity === 'browse' && 
-          <ForumBrowse onClick={this.props.changeActivity} />
-        }
-        {this.props.activity === 'read' && 
-          <ForumRead onClick={this.props.changeActivity}/>
-        }
-        {this.props.activity === 'write' &&
-          <ForumWrite onClick={this.props.changeActivity} />
-        }
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h2>Welcome to the forums (✿ ͜ʖ✿)</h2>
+      {activity === 'browse' && 
+        <ForumBrowse onClick={changeActivity} />
+      }
+      {activity === 'read' && 
+        <ForumRead onClick={changeActivity}/>
+      }
+      {activity === 'write' &&
+        <ForumWrite onClick={changeActivity} />
+      }
+    </div>
+  );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Forum);
+export default Forum;
