@@ -1,32 +1,26 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class InfoCardSegment extends Component {
-  constructor(props) {
-    super(props);
+const InfoCardSegment = ({question, answer, text}) => {
+  let status;
+  if (answer === 'no') {
+    status = "No ❌";
+  } else if (answer === 'death') {
+    status = "No: Death Penalty ❌💀❌"
+  } else if (answer === 'complicated') {
+    status = "Complicated, Partially, or Unknown ❓"
+  } else if (answer === 'yes') {
+    status = "Yes! ✅"
   }
 
-  render() {
-    let status;
-    if (this.props.answer === 'no') {
-      status = "No ❌";
-    } else if (this.props.answer === 'death') {
-      status = "No: Death Penalty ❌💀❌"
-    } else if (this.props.answer === 'complicated') {
-      status = "Complicated, Partially, or Unknown ❓"
-    } else if (this.props.answer === 'yes') {
-      status = "Yes! ✅"
-    }
-
-    return (
-      <div>
-        <h3>{this.props.question}</h3>
-        <p>{status}</p>
-        {this.props.text !== '' &&
-          <p>{this.props.text}</p>
-        }
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h3>{question}</h3>
+      <p>{status}</p>
+      {text !== '' &&
+        <p>{text}</p>
+      }
+    </div>
+  );
 }
 
 export default InfoCardSegment;

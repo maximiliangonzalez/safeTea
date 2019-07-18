@@ -1,49 +1,47 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import ForumReadComment from './ForumReadComment.jsx';
 
-class ForumReadComments extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      comments: null
-    }
-  }
+const ForumReadComments = ({id, newComments}) => {
+  const [comments, setComments] = useState(null);
 
-  componentDidMount() {
-    fetch(`/comments/${this.props.id}`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          comments: res
-        });
-      });
-  }
+  useEffect(
+    () => {
+      fetch(`/comments/${id}`)
+          .then(res => res.json())
+          .then(res => {
+            setComments(res);
+          });
+    },
+    []
+  );
 
-  render() {
-    return (
-      <div>
-        {this.state.comments !== null &&
-          <div>
-            <h4>Comments: </h4>
-            {this.state.comments.map(comment => {
-              return <ForumReadComment 
+  return (
+    <>
+      {comments !== null &&
+        <div>
+          <h4>Comments: </h4>
+          {newComments.map(comment => {
+            return (
+                <ForumReadComment 
+                  text={comment.text}
+                  user={comment.user}
+                />
+              );
+            })
+          }
+          {comments.map(comment => {
+            return (
+              <ForumReadComment 
                 text={comment.text}
                 user={comment.username}
                 key={`${comment.text.slice(0,15)}${comment.username}`}
-              />;
-            })}
-            {this.props.newComments.map(comment => {
-              return <ForumReadComment 
-                text={comment.text}
-                user={comment.user}
               />
-            })
-            }
-          </div>
-        }
-      </div>
-    );
-  }
+            );
+          })}
+        </div>
+      }
+    </>
+  );
 }
 
 export default ForumReadComments;

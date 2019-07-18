@@ -1,5 +1,4 @@
 import * as types from '../constants/actionTypes';
-import { bindActionCreators } from '../../../../../AppData/Local/Microsoft/TypeScript/3.5/node_modules/redux';
 
 export const changeActivity = activity => ({
   type: types.CHANGE_ACTIVITY,

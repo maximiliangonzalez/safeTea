@@ -1,102 +1,83 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import * as actions from '../actions/actions';
 import Home from './Home.jsx';
 import InfoCards from './InfoCards.jsx';
 
-const mapStateToProps = state => ({
-  result: state.safeTea.request.result
-});
+const Safety = () => {
+  const [country, setCountry] = useState('');
+  const [right, setRight] = useState('');
+  const [hasRight, setHasRight] = useState(true);
 
-const mapDispatchToProps = dispatch => ({
-  queryDB: endpoint => dispatch(actions.queryDB(endpoint))
-});
+  const result = useSelector(store => store.safeTea.request.result);
 
-class Safety extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      country: '',
-      right: '',
-      with: true
-    }
-    this.updateText = this.updateText.bind(this);
-    this.getCountry = this.getCountry.bind(this);
-    this.updateSelect = this.updateSelect.bind(this);
-    this.getRight = this.getRight.bind(this);
-    this.updateRadio = this.updateRadio.bind(this);
+  const dispatch = useDispatch();
+  const queryDB = endpoint => dispatch(actions.queryDB(endpoint));
+
+  const updateText = e => {
+    setCountry(e.target.value.toLowerCase().split(' ').join('_'));
   }
 
-  updateText(e) {
-    this.setState({
-      country: e.target.value.toLowerCase().split(' ').join('_'),
-    }, () => {
-      if (this.state.country !== '') {
-        const endpoint = `/country/${this.state.country}`;
-        this.props.queryDB(endpoint);
+  useEffect(
+    () => {
+      if (country !== '') {
+        queryDB(`/country/${country}`);
       }
-    });
-  }
+    },
+    [country]
+  );
 
-  getCountry(e) {
+  const getCountry = e => {
     e.preventDefault();
-    const endpoint = `/country/${this.state.country}`;
-    this.props.queryDB(endpoint);
+    queryDB(`/country/${country}`);
   }
 
-  updateSelect(e) {
-    this.setState({
-      right: e.target.value
-    });
+  const updateSelect = e => {
+    setRight(e.target.value);
   }
 
-  getRight(e) {
+  const getRight = e => {
     e.preventDefault();
-    const endpoint = `/right/${this.state.right}${this.state.with ? '' : '/whack'}`;
-    this.props.queryDB(endpoint);
+    queryDB(`/right/${right}${hasRight ? '' : '/whack'}`);
   }
 
-  updateRadio(e) {
-    this.setState({
-      with: e.target.value === 'true' ? true : false
-    });
+  const updateRadio = e => {
+    setHasRight(e.target.value === 'true' ? true : false)
   }
 
-  render() {
-    return (
-      <div>
-      <div className="form-container">
-        <form>
-          <h3>Welcome to safeTea (♥◡♥)</h3>
-          <h2>Search for info about a country: </h2>
-          <input type="text" onChange={this.updateText}/>
-          <button onClick={this.getCountry}>Search Countries</button>
-          <h2>Or search by specific rights: </h2>
-          <select onChange={this.updateSelect} defaultValue="Select a right">
-            <option value="Select a right" disabled>Select a right</option>
-            <option value="sexualActivity">Same Sex Sexual Activity</option>
-            <option value="unionRecognition">Same Sex Union Recognition</option>
-            <option value="marriage">Same Sex Marriage</option>
-            <option value="adoption">Same Sex Adoption</option>
-            <option value="antiDiscrimination">LGBT Antidiscrimination</option>
-            <option value="genderIdentity">Gender Identity Recognition</option>
-          </select>
-          <button disabled={this.state.right === '' ? true : false} onClick={this.getRight}>
-            Search Rights
-          </button>
-          <br />
-          Countries with this right:
-          <input type="radio" name="not" value="true" onChange={this.updateRadio} />
-          <br />
-          Countries without this right:
-          <input type="radio" name="not" value="false" onChange={this.updateRadio} />
-        </form>
-      </div>
-      {(this.props.result === null) && <Home /> }
-      {(this.props.result !== null) && <InfoCards result={this.props.result}/>}
+  return (
+    <div>
+    <div className="form-container">
+      <form>
+        <h3>Welcome to safeTea (♥◡♥)</h3>
+        <h2>Search for info about a country: </h2>
+        <input type="text" onChange={updateText}/>
+        <button onClick={getCountry}>Search Countries</button>
+        <h2>Or search by specific rights: </h2>
+        <select onChange={updateSelect} defaultValue="Select a right">
+          <option value="Select a right" disabled>Select a right</option>
+          <option value="sexualActivity">Same Sex Sexual Activity</option>
+          <option value="unionRecognition">Same Sex Union Recognition</option>
+          <option value="marriage">Same Sex Marriage</option>
+          <option value="adoption">Same Sex Adoption</option>
+          <option value="antiDiscrimination">LGBT Antidiscrimination</option>
+          <option value="genderIdentity">Gender Identity Recognition</option>
+        </select>
+        <button disabled={right === '' ? true : false} onClick={getRight}>
+          Search Rights
+        </button>
+        <br />
+        Countries with this right:
+        <input type="radio" name="not" value="true" onChange={updateRadio} />
+        <br />
+        Countries without this right:
+        <input type="radio" name="not" value="false" onChange={updateRadio} />
+      </form>
     </div>
-    );
-  }
+    {(result === null) && <Home /> }
+    {(result !== null) && <InfoCards result={result}/>}
+  </div>
+  );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Safety);
+export default Safety;

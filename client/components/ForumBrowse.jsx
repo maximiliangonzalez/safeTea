@@ -6,9 +6,6 @@ import ForumBrowsePost from './ForumBrowsePost.jsx';
 const ForumBrowse = ({onClick}) => {
   const dispatch = useDispatch();
 
-  const posts = useSelector(store => store.forum.posts);
-  console.log(posts)
-
   useEffect(
     () => {
       dispatch(actions.fetchPosts());
@@ -16,20 +13,28 @@ const ForumBrowse = ({onClick}) => {
     []
   );
 
+  const posts = useSelector(store => store.forum.posts);
+
+  const postComponents = [];
+
+  for (let i = posts.length - 1; i >= 0; i--) {
+    postComponents.push(
+      <ForumBrowsePost 
+        user={posts[i].username}
+        text={posts[i].text} 
+        title={posts[i].title} 
+        postId={posts[i].postid}
+        key={`${posts[i].text.slice(0,15)}${posts[i].username}`}
+      />
+    );
+  }
+    
   return (
     <div>
       <h3>Create a new post: </h3>
       <button onClick={() => onClick('write')}>Write Post</button>
       <h3>Recent posts:</h3>
-      {posts.map(post => {
-        return <ForumBrowsePost 
-          user={post.username}
-          text={post.text} 
-          title={post.title} 
-          postId={post.postid}
-          key={`${post.text.slice(0,15)}${post.username}`}
-        />
-      })}
+      {postComponents}
     </div>
   );
 }

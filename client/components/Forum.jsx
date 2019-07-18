@@ -14,7 +14,7 @@ const Forum = () => {
   const activity = useSelector(store => store.forum.activity);
 
   return (
-    <div>
+    <>
       <h2>Welcome to the forums (✿ ͜ʖ✿)</h2>
       {activity === 'browse' && 
         <ForumBrowse onClick={changeActivity} />
@@ -25,7 +25,7 @@ const Forum = () => {
       {activity === 'write' &&
         <ForumWrite onClick={changeActivity} />
       }
-    </div>
+    </>
   );
 }
 

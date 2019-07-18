@@ -1,36 +1,26 @@
-import React, {Component} from 'react';
+import React from 'react';
 import * as actions from '../actions/forumActions';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-const mapStateToProps = state => ({
-  
-});
-
-const mapDispatchToProps = dispatch => ({
-  changeActivity: activity => dispatch(actions.changeActivity(activity)),
-  fetchAPost: id => dispatch(actions.fetchAPost(id))
-});
-
-class ForumBrowsePost extends Component {
-  constructor(props) {
-    super(props);
-    this.goToPost = this.goToPost.bind(this);
-  } 
-
-
-  goToPost(id) {
-    this.props.changeActivity('read');
-    this.props.fetchAPost(id);
+const ForumBrowsePost = ({postId, title, user}) => {
+  const dispatch = useDispatch();
+  const changeActivity = activity => dispatch(actions.changeActivity(activity));
+  const fetchAPost = id => dispatch(actions.fetchAPost(id));
+  const goToPost = id => {
+    changeActivity('read');
+    fetchAPost(id);
   }
 
-  render() {
-    return (
-      <div className="post-browsing">
-        <h3><a onClick={() => this.goToPost(this.props.postId)}>{this.props.title}</a></h3>
-        <p>posted by: {this.props.user}</p>
-      </div>
-    );
-  }
+  return (
+    <div className="post-browsing">
+      <h3>
+        <a onClick={() => goToPost(postId)}>
+          {title}
+        </a>
+      </h3>
+      <p>posted by: {user}</p>
+    </div>
+  );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ForumBrowsePost);
+export default ForumBrowsePost;

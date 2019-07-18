@@ -1,19 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class ForumReadComment extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div>
-        <h3>{this.props.user}</h3>
-        <p>{this.props.text}</p>
-        <hr />
-      </div>
-    );
-  }
-}
+const ForumReadComment = ({user, text}) => (
+  <>
+    <h3>{user}</h3>
+    <p>{text}</p>
+    <hr />
+  </>
+);
 
 export default ForumReadComment;
